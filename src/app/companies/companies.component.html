@@ -1,0 +1,123 @@
+<div class="container-fluid">
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+      <table class="table table-striped"
+             [mfData]="data | dataFilter : filterQuery"
+             #mf="mfDataTable"
+             [(mfSortBy)]="sortBy"
+             [(mfSortOrder)]="sortOrder">
+        <thead>
+        <tr>
+          <th colspan="4">
+            Filter by name:
+            <input class="form-control" [(ngModel)]="filterQuery" [disabled]="disabled()">
+          </th>
+          <th colspan="2">
+            <button class="btn btn-primary col-xs-12" (click)="onCreate()" [disabled]="disabled()">ADD NEW COMPANY</button>
+            <div class="popup" *ngIf="creating">
+              <h1>Adding New Company</h1>
+              <form [formGroup]="rowEdit" (ngSubmit)="onSubmitCreation()">
+                <input placeholder="Name"
+                       class="form-control"
+                       type="text"
+                       formControlName="name"
+                >
+                <input placeholder="Address"
+                       class="form-control"
+                       type="text"
+                       formControlName="address"
+                >
+                <input placeholder="Phone"
+                       class="form-control"
+                       type="text"
+                       formControlName="phoneNumber"
+                >
+                <input placeholder="Site"
+                       class="form-control"
+                       type="url"
+                       formControlName="site"
+                >
+                <textarea placeholder="Description"
+                          class="form-control"
+                          formControlName="description"
+                >
+                </textarea>
+                <button class="btn btn-primary col-xs-4 col-xs-offset-1" type="submit" [disabled]="!rowEdit.valid">SAVE</button>
+                <button class="btn btn-danger col-xs-4 col-xs-offset-2" type="reset" (click)="onCancel()">CANCEL</button>
+              </form>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <th style="width: 10%">
+            <mfDefaultSorter by="name">Name</mfDefaultSorter>
+          </th>
+          <th style="width: 15%">
+            <mfDefaultSorter by="address">Address</mfDefaultSorter>
+          </th>
+          <th style="width: 10%">
+            <mfDefaultSorter by="phoneNumber">Phone</mfDefaultSorter>
+          </th>
+          <th style="width: 10%">
+            <mfDefaultSorter by="site">Site</mfDefaultSorter>
+          </th>
+          <th style="width: 40%">
+            <mfDefaultSorter by="description">Description</mfDefaultSorter>
+          </th>
+          <th style="min-width: 110px"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of mf.data; let i = index">
+          <td>{{item.name}}</td>
+          <td>{{item?.address}}</td>
+          <td>{{item?.phoneNumber}}</td>
+          <td>{{item?.site}}</td>
+          <td>{{item?.description}}</td>
+          <td>
+            <div><button (click)="onX(i, item)" class="btn btn-danger" [disabled]="disabled()">x</button></div>
+            <button (click)="onEdit(i, item)" class="btn btn-primary" [disabled]="disabled()">EDIT</button>
+            <div class="popup" *ngIf="deleting === i">
+              <h1>Do you want to delete {{item.name}}?</h1>
+              <button class="btn btn-primary col-xs-4 col-xs-offset-1" (click)="onRemove(item)">YES</button>
+              <button class="btn btn-danger col-xs-4 col-xs-offset-2" (click)="onCancelDelete()">NO</button>
+            </div>
+            <div class="popup" *ngIf="editing === i">
+              <h1>Editing {{item.name}}</h1>
+              <form [formGroup]="rowEdit" (ngSubmit)="onSubmit(item)">
+                <input placeholder="Name"
+                       class="form-control"
+                       type="text"
+                       formControlName="name"
+                >
+                <input placeholder="Address"
+                       class="form-control"
+                       type="text"
+                       formControlName="address"
+                >
+                <input placeholder="Phone"
+                       class="form-control"
+                       type="text"
+                       formControlName="phoneNumber"
+                >
+                <input placeholder="Site"
+                       class="form-control"
+                       type="url"
+                       formControlName="site"
+                >
+                <textarea placeholder="Description"
+                          class="form-control"
+                          formControlName="description"
+                >
+                </textarea>
+                <button class="btn btn-primary col-xs-4 col-xs-offset-1" type="submit" [disabled]="!rowEdit.valid">SAVE</button>
+                <button class="btn btn-danger col-xs-4 col-xs-offset-2" type="reset" (click)="onCancel()">CANCEL</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

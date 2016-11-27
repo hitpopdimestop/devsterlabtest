@@ -1,1 +1,98 @@
-/* You can add global styles to this file, and also import other style files */
+div.header {
+  padding: 20px;
+  padding-left: 40px;
+}
+
+.header>a {
+  font-size: 20px;
+  color: #888;
+  margin-right: 20px;
+}
+
+.header>a:hover,
+.header>a.active {
+  color: #337ab7;
+  border-bottom: 2px solid rgba(255, 0, 0, 0.5);
+  text-decoration: none;
+}
+
+.popup {
+  position: absolute;
+  width: 100%;
+  padding: 100px;
+  background-color: #fefefe;
+  z-index: 1000;
+  border: 2px solid red;
+  border-radius: 3px;
+  top: 80px;
+  left: 0;
+}
+
+table {
+  position: relative;
+}
+
+tr > td > button.btn,
+tr > td > div > button.btn {
+  display: none;
+}
+
+tr:hover button.btn {
+  display: inline-block;
+}
+
+th {
+  text-align: center;
+}
+
+th:nth-child(1) {
+  text-align: left;
+}
+
+td {
+  border-left: 1px solid #eee;
+}
+
+td:nth-child(6) {
+  border-left: none;
+}
+
+.table>tbody>tr>td {
+  height: 51px;
+  vertical-align: middle;
+}
+
+.popup>h1 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 40px;
+}
+
+.popup>button.btn {
+  display: inline-block;
+}
+
+form>input, form>textarea {
+  margin-bottom: 20px;
+}
+
+td>div {
+  position: relative;
+  display: inline-block;
+}
+
+div.radio {
+  margin-bottom: 20px;
+}
+
+.radio label {
+  margin-right: 20px;
+  padding-left: 13px;
+}
+
+div.role {
+  float: left;
+  padding-right: 40px;
+}
+
+

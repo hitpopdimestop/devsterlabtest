@@ -1,3 +1,6 @@
-<h1>
-  {{title}}
-</h1>
+<div class="header">
+  <a [routerLink]="['/companies']" routerLinkActive="active">Companies</a>
+  <a [routerLink]="['/', 'users']" routerLinkActive="active">Users</a>
+</div>
+
+<router-outlet></router-outlet>
