@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>DevsterLabTest</title>
+  <base href="/devsterlabtest/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://npmcdn.com/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://npmcdn.com/bootstrap/dist/css/bootstrap-theme.min.css">
+
+  <script>
+    // See http://www.backalleycoder.com/2016/05/13/sghpa-the-single-page-app-hack-for-github-pages/
+    (function(){
+      var redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if (redirect && redirect != location.href) {
+        history.replaceState(null, null, redirect);
+      }
+    })();
+  </script>
+
+</head>
+<body>
+  <app-root>Loading...</app-root>
+<script type="text/javascript" src="inline.js"></script><script type="text/javascript" src="styles.8003d6113c5cfdb1ee71.bundle.js"></script><script type="text/javascript" src="main.71f0c96acf247aad6957.bundle.js"></script></body>
+</html>
