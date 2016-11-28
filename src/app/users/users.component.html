@@ -1,137 +1,139 @@
 <div class="container-fluid">
-  <div class="col-xs-12">
-    <div class="panel panel-default">
-      <table class="table table-striped"
-             [mfData]="data | dataFilter : filterQuery"
-             #mf="mfDataTable"
-             [(mfSortBy)]="sortBy"
-             [(mfSortOrder)]="sortOrder">
-        <thead>
-        <tr>
-          <th colspan="4">
-            Filter by name:
-            <input class="form-control" [(ngModel)]="filterQuery" [disabled]="disabled()">
-          </th>
-          <th colspan="2">
-            <button class="btn btn-primary col-xs-12" (click)="onCreate()" [disabled]="disabled()">ADD NEW USER</button>
-            <div class="popup" *ngIf="creating">
-              <h1>Adding New User</h1>
-              <form [formGroup]="rowEdit" (ngSubmit)="onSubmitCreation()">
-                <input placeholder="First Name"
-                       class="form-control"
-                       type="text"
-                       formControlName="firstName"
-                >
-                <input placeholder="Last Name"
-                       class="form-control"
-                       type="text"
-                       formControlName="lastName"
-                >
-                <input placeholder="Email"
-                       class="form-control"
-                       type="text"
-                       formControlName="email"
-                >
-                <div class="radio">
-                  <label *ngFor="let g of genders">
-                    <input type="radio"
-                           formControlName="gender"
-                           [value]="g">
-                    {{g | uppercase}}
-                  </label>
-                  <div class="role">
-                    <label>Role</label>
-                    <select name="role" formControlName="role">
-                      <option *ngFor="let role of roles"
-                              [value]="role">
-                        {{role}}
-                      </option>
-                    </select>
-                  </div>
+  <div class="panel panel-default">
+    <table class="table table-striped"
+           [mfData]="data | dataFilter : filterQuery"
+           #mf="mfDataTable"
+           [(mfSortBy)]="sortBy"
+           [(mfSortOrder)]="sortOrder">
+      <thead>
+      <tr>
+        <th colspan="4">
+          Filter by name:
+          <input class="form-control" [(ngModel)]="filterQuery" [disabled]="disabled()">
+        </th>
+        <th colspan="2">
+          <button class="btn btn-primary col-xs-12" (click)="onCreate()" [disabled]="disabled()">ADD NEW USER</button>
+          <div class="popup" *ngIf="creating">
+            <h1>Adding New User</h1>
+            <form [formGroup]="rowEdit" (ngSubmit)="onSubmitCreation()">
+              <input placeholder="First Name"
+                     class="form-control"
+                     type="text"
+                     formControlName="firstName"
+              >
+              <input placeholder="Last Name"
+                     class="form-control"
+                     type="text"
+                     formControlName="lastName"
+              >
+              <input placeholder="Email"
+                     class="form-control"
+                     type="text"
+                     formControlName="email"
+              >
+              <div class="radio">
+                <label *ngFor="let g of genders">
+                  <input type="radio"
+                         formControlName="gender"
+                         [value]="g">
+                  {{g | uppercase}}
+                </label>
+                <div class="role">
+                  <label>Role</label>
+                  <select name="role" formControlName="role">
+                    <option *ngFor="let role of roles"
+                            [value]="role">
+                      {{role}}
+                    </option>
+                  </select>
                 </div>
-                <button class="btn btn-primary col-xs-4 col-xs-offset-1" type="submit" [disabled]="!rowEdit.valid">SAVE</button>
-                <button class="btn btn-danger col-xs-4 col-xs-offset-2" type="reset" (click)="onCancel()">CANCEL</button>
-              </form>
-            </div>
-          </th>
-        </tr>
-        <tr>
-          <th style="width: 25%">
-            <mfDefaultSorter by="firstName">First Name</mfDefaultSorter>
-          </th>
-          <th style="width: 25%">
-            <mfDefaultSorter by="lastName">Last Name</mfDefaultSorter>
-          </th>
-          <th style="width: 30%">
-            <mfDefaultSorter by="email">Email</mfDefaultSorter>
-          </th>
-          <th style="width: 80px">
-            <mfDefaultSorter by="gender">Gender</mfDefaultSorter>
-          </th>
-          <th style="width: 80px">
-            <mfDefaultSorter by="role">Role</mfDefaultSorter>
-          </th>
-          <th style="min-width: 110px"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of mf.data; let i = index">
-          <td>{{item.firstName}}</td>
-          <td>{{item?.lastName}}</td>
-          <td>{{item.email}}</td>
-          <td>{{item.gender}}</td>
-          <td>{{item.role}}</td>
-          <td>
-            <div><button (click)="onX(i, item)" class="btn btn-danger" [disabled]="disabled()">x</button></div>
-            <button (click)="onEdit(i, item)" class="btn btn-primary" [disabled]="disabled()">EDIT</button>
-            <div class="popup" *ngIf="deleting === i">
-              <h1>Do you want to delete {{item.firstName}} {{item?.lastName}}?</h1>
-              <button class="btn btn-primary col-xs-4 col-xs-offset-1" (click)="onRemove(item)">YES</button>
-              <button class="btn btn-danger col-xs-4 col-xs-offset-2" (click)="onCancelDelete()">NO</button>
-            </div>
-            <div class="popup" *ngIf="editing === i">
-              <h1>Editing {{item.firstName}} {{item?.lastName}}</h1>
-              <form [formGroup]="rowEdit" (ngSubmit)="onSubmit(item)">
-                <input placeholder="First Name"
-                       class="form-control"
-                       type="text"
-                       formControlName="firstName"
-                >
-                <input placeholder="Last Name"
-                       class="form-control"
-                       type="text"
-                       formControlName="lastName"
-                >
-                <input placeholder="Email"
-                       class="form-control"
-                       type="text"
-                       formControlName="email"
-                >
-                <div class="radio">
-                  <label *ngFor="let g of genders">
-                    <input type="radio"
-                           formControlName="gender"
-                           [value]="g">
-                    {{g | uppercase}}
-                  </label>
-                  <div class="role">
-                    <label>Role</label>
-                    <select name="role" formControlName="role">
-                      <option *ngFor="let role of roles"
-                              [value]="role">
-                        {{role}}
-                      </option>
-                    </select>
-                  </div>
+              </div>
+              <button class="btn btn-primary col-xs-4 col-xs-offset-1" type="submit" [disabled]="!rowEdit.valid">SAVE
+              </button>
+              <button class="btn btn-danger col-xs-4 col-xs-offset-2" type="reset" (click)="onCancel()">CANCEL</button>
+            </form>
+          </div>
+        </th>
+      </tr>
+      <tr>
+        <th style="width: 25%">
+          <mfDefaultSorter by="firstName">First Name</mfDefaultSorter>
+        </th>
+        <th style="width: 25%">
+          <mfDefaultSorter by="lastName">Last Name</mfDefaultSorter>
+        </th>
+        <th style="width: 30%">
+          <mfDefaultSorter by="email">Email</mfDefaultSorter>
+        </th>
+        <th style="width: 80px">
+          <mfDefaultSorter by="gender">Gender</mfDefaultSorter>
+        </th>
+        <th style="width: 80px">
+          <mfDefaultSorter by="role">Role</mfDefaultSorter>
+        </th>
+        <th style="min-width: 110px"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of mf.data; let i = index">
+        <td>{{item.firstName}}</td>
+        <td>{{item?.lastName}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.gender}}</td>
+        <td>{{item.role}}</td>
+        <td>
+          <div>
+            <button (click)="onX(i, item)" class="btn btn-danger" [disabled]="disabled()">x</button>
+          </div>
+          <button (click)="onEdit(i, item)" class="btn btn-primary" [disabled]="disabled()">EDIT</button>
+          <div class="popup" *ngIf="deleting === i">
+            <h1>Do you want to delete {{item.firstName}} {{item?.lastName}}?</h1>
+            <button class="btn btn-primary col-xs-4 col-xs-offset-1" (click)="onRemove(item)">YES</button>
+            <button class="btn btn-danger col-xs-4 col-xs-offset-2" (click)="onCancelDelete()">NO</button>
+          </div>
+          <div class="popup" *ngIf="editing === i">
+            <h1>Editing {{item.firstName}} {{item?.lastName}}</h1>
+            <form [formGroup]="rowEdit" (ngSubmit)="onSubmit(item)">
+              <input placeholder="First Name"
+                     class="form-control"
+                     type="text"
+                     formControlName="firstName"
+              >
+              <input placeholder="Last Name"
+                     class="form-control"
+                     type="text"
+                     formControlName="lastName"
+              >
+              <input placeholder="Email"
+                     class="form-control"
+                     type="text"
+                     formControlName="email"
+              >
+              <div class="radio">
+                <label *ngFor="let g of genders">
+                  <input type="radio"
+                         formControlName="gender"
+                         [value]="g">
+                  {{g | uppercase}}
+                </label>
+                <div class="role">
+                  <label>Role</label>
+                  <select name="role" formControlName="role">
+                    <option *ngFor="let role of roles"
+                            [value]="role">
+                      {{role}}
+                    </option>
+                  </select>
                 </div>
-                <button class="btn btn-primary col-xs-4 col-xs-offset-1" type="submit" [disabled]="!rowEdit.valid">SAVE</button>
-                <button class="btn btn-danger col-xs-4 col-xs-offset-2" type="reset" (click)="onCancel()">CANCEL</button>
-              </form>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+              </div>
+              <button class="btn btn-primary col-xs-4 col-xs-offset-1" type="submit" [disabled]="!rowEdit.valid">SAVE
+              </button>
+              <button class="btn btn-danger col-xs-4 col-xs-offset-2" type="reset" (click)="onCancel()">CANCEL</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>

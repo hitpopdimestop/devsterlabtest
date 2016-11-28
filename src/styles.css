@@ -16,6 +16,14 @@ div.header {
   text-decoration: none;
 }
 
+div.panel {
+  min-width: 720px;
+}
+
+.form-control {
+  box-sizing: border-box;
+}
+
 .popup {
   position: absolute;
   width: 100%;
@@ -58,7 +66,7 @@ td:nth-child(6) {
 }
 
 .table>tbody>tr>td {
-  height: 51px;
+  height: 52px;
   vertical-align: middle;
 }
 
